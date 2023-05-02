@@ -4,6 +4,8 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 
 const app = express();
+app.use(express.static("public"));
+
 const content = renderToString(<Home />);
 
 app.get("/", function (req, res) {
@@ -14,6 +16,7 @@ app.get("/", function (req, res) {
       </head>
       <body>
         ${content}
+        <script src='/index.js'></script>
       </body>
     </html>
   `);
