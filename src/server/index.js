@@ -1,14 +1,19 @@
 import express from "express";
 import React from "react";
 import { renderToString } from "react-dom/server";
-import Home from "../containers/Home";
+import { StaticRouter } from "react-router-dom/server";
+import IRoutes from "../Routes";
 
 const app = express();
 app.use(express.static("public"));
 
-const content = renderToString(<Home />);
-
 app.get("/", function (req, res) {
+  const content = renderToString(
+    <StaticRouter location={req.path}>
+      <IRoutes />
+    </StaticRouter>
+  );
+
   res.send(`
     <html>
       <head>
